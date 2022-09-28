@@ -4,7 +4,7 @@
    top: 1vw;
    left: 1vw;
    height: 3vw;
-   width: 3vw;
+   width: 0vw;
    transform: rotate(45deg);
    background-color: aqua;
 }
@@ -13,7 +13,7 @@
    top: 30vw;
    left: 20vw;
    height: 3vw;
-   width: 20vw;
+   width: 15vw;
    background-color:coral;
    transform: translateZ(7);
 }
