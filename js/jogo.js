@@ -2,15 +2,15 @@
 function tickFunc() {
 	tick++;
 	if (orient=='l'){
-		pers.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)-1);
-		enemy.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)-1);
+		pers.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)-2);
+		enemy.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)-2);
 	}
 	if (orient=='r'){
 		enemy.forEach(p=>p.style.left++);
 	}
 
-	enemy.forEach(p=>enemyDestroy(p));
-	enemy.forEach(p=>colisao(p));
+	pers.forEach(p=>enemyDestroy(p));
+	pers.forEach(p=>colisao(p));
 
 
 	if (tick==400){
@@ -37,6 +37,7 @@ function tickFunc() {
 
 function gravidade(){
 	pers.forEach(p=>cair(p));
+	if (cairCheck==0) {pl.style.top = parseInt(getComputedStyle(pl).top)+2;}
 }
 function cair(p){
 	let div1Left= parseInt(getComputedStyle(div1).left);
@@ -51,17 +52,17 @@ function cair(p){
 	
 	let fundoHeight= parseInt(getComputedStyle(fundo).height);
 	let fundoWidth= parseInt(getComputedStyle(fundo).width);
-	if (!(((div1Left >= pLeft)&&(div1Left <= pLeft + pWidth))&&
-	((div1Top == pTop-pHeight - pHeight)&&(div1Top <= pTop ))) && (div1Top <= fundoHeight - div1Height)){
+	if (!(((div1Left >= pLeft)&&(div1Left <= pLeft + pWidth))&&((div1Top == pTop-pHeight - pHeight)&&(div1Top <= pTop ))) && (div1Top <= fundoHeight - div1Height/2)){
+		cairCheck==1
 		pl.style.top = parseInt(getComputedStyle(pl).top)+1;
 	}
+	else {cairCheck==0}
 }
 
 
 function enemyDestroy(p){
-	if (parseInt(getComputedStyle(p).left) <= -30){
-		fundo.removeChild(p);
-		enemy.shift();
+	if (parseInt(getComputedStyle(p).left) <= 0-parseInt(getComputedStyle(p).width)){
+		fundo.removeChild(pers.shift());
 	}
 }
 
@@ -90,33 +91,32 @@ function moveresquerda(){
 	}
 }
 
-// Mover cursor 1  - através dos botões
+// Mover cursor 1  - através dos botões do teclado
 function move(e) {
-	
-	if (e.charCode==97){
-		parar()
+	console.log(e.keyCode)
+	if (audioplay==0) {
+		let neve = new Audio('../audio/neve.mp3');
+		neve.play();
+		audioplay=1;
 	}
-	if (contador != 0) {
-		para();
-	}
-	if (Direcao == "direita") {
+	if (e.keyCode == 68) {
 		timer = setInterval("direita()",15);
 		contador ++;
 	}
 
 
-	if (Direcao == "esquerda") {
+	if (e.keyCode == 65) {
 
 		timer = setInterval("esquerda()",15);
 		contador ++;
 	}
 
-	if (Direcao == "acima") {
+	if (e.keyCode == 32) {
 		timer = setInterval("acima()",15);
 		contador ++;
 	}
 
-	if (Direcao == "baixo") {
+	if (e.keyCode == 83) {
 		timer = setInterval("baixo()",15);
 		contador ++;
 	}
@@ -240,9 +240,10 @@ let pers = [];
 let enemy = [];
 let orient = '';
 let tick = 0;
-let tickInt = setInterval("tickFunc()",15);
-let grav = setInterval("gravidade()",15);
-
+let tickInt = setInterval("tickFunc()",10);
+let grav = setInterval("gravidade()",10);
+let audioplay = 0;
+let cairCheck = 0;
 orient = 'l';
 
 
@@ -250,7 +251,7 @@ let contador = 0;
 let cont = 0;
    let m = setInterval("moverdireita()", 15); //Funções que são chamadas a cada 15 e 5 milisegundos
 
-document.querySelector(".fundo").addEventListener("onkeydown", (e)=>{move(e)});
+document.querySelector("body").addEventListener("keydown", (e)=>{move(e)});
 
 
 
@@ -260,16 +261,5 @@ rrrr.setAttribute('class','chao');
 pers.push(rrrr);
 fundo.appendChild(rrrr);
 
-
-document.querySelector("#acima").addEventListener("click", ()=>{move('acima')});
-document.querySelector("#esquerda").addEventListener("click",()=>{ move('esquerda')});
-document.querySelector("#direita").addEventListener("click",()=>{ move('direita')});
-document.querySelector("#baixo").addEventListener("click",()=>{ move('baixo')});
-document.querySelector("#acima").addEventListener("click",()=>{ move('acima')});
-document.querySelector("#alturaMais").addEventListener("click", ()=>{altura(5)});
-document.querySelector("#alturaMenos").addEventListener("click", ()=>{altura(-5)});
-document.querySelector("#larguraMais").addEventListener("click", ()=>{largura(5)});
-document.querySelector("#larguraMenos").addEventListener("click", ()=>{largura(-5)});
-document.querySelector("#cor").addEventListener("click", ()=>{cor()});
 document.querySelector("#para").addEventListener("click",()=>{ para()});
 document.querySelector("#para2").addEventListener("click", ()=>{para2()});

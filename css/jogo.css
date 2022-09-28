@@ -5,6 +5,7 @@
    left: 1vw;
    height: 3vw;
    width: 3vw;
+   transform: rotate(45deg);
    background-color: aqua;
 }
 .chao {
@@ -14,6 +15,11 @@
    height: 3vw;
    width: 20vw;
    background-color:coral;
+   transform: translateZ(7);
+}
+
+body {
+   transform: translateZ(6);
 }
 
 /*     */
@@ -24,9 +30,11 @@
 .fundo {position:absolute;
     width: 80vw;
     height: 40vw;
-    background-color: black;
+    background-image: url('../img/paisagem_neve.jpg');
+    background-size:cover;
     border: solid 5px maroon;
     text-align: center;
+    transform: translateZ(111);
    }
 .painel {
    position: absolute;
@@ -51,4 +59,5 @@
    height: 5vw; 
    background-color: green; 
    text-align: center;
+   font-size: 300%;
 }
