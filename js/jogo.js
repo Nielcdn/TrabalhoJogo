@@ -164,6 +164,7 @@ function acima() {
 	if (countPulo==20){
 	clearInterval(timer);
 	countPulo = 0;
+	grauQueda = 0;
 	}
 }
 
