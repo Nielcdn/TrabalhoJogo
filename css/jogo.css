@@ -25,18 +25,27 @@
    width: 0vw;
    background-image: url('../img/plataforma_neve.jpg');
    background-size: cover;
-   background-color:coral;
-   transform: translateZ(7);
 }
 
 body {
-   transform: translateZ(6);
+   background-color: rgb(52, 25, 78);
 }
 
 /*     */
+
+.moedaCount {
+   position:absolute;
+   top: 1vw;
+   left: 0vw;
+   width: 5vw;
+   height: 2vw;
+   font-size: 2.5vh;
+   color:chartreuse;
+}
+
 .fora {position:absolute;
    top: 2vw;
-   left: 10%}
+   left: 8%;}
 
 .fundo {position:absolute;
     width: 80vw;
@@ -45,23 +54,15 @@ body {
     background-size:cover;
     border: solid 5px maroon;
     text-align: center;
-    transform: translateZ(111);
+    overflow: hidden;
    }
 .painel {
    position: absolute;
     top: 42vw; 
     left:10vw; 
     text-align: center;
-}  
-#div2 {
-   position: absolute; 
-   top: 5vw; 
-   left: 5vw; 
-   width: 5vw; 
-   height: 5vw; 
-   background-color: green; 
-   text-align: center;
 }
+
 #div1 {
    position: absolute;
    top: 15vw;
@@ -70,5 +71,6 @@ body {
    height: 5vw; 
    background-color: green; 
    text-align: center;
-   font-size: 300%;
+   font-size: 4vw;
+   transition: opacity 2s linear 0s;
 }

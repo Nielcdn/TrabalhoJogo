@@ -1,57 +1,52 @@
 
 function tickFunc() {
-	tick++;
+	fundoHeight = parseFloat(getComputedStyle(fundo).height);
+	fundoWidth = parseFloat(getComputedStyle(fundo).width);
+
+
 	if (orient=='l'){
-		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-2);
-		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-2);
+		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-10*(0.001*fundoHeight));
+		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-2*10*(0.001*fundoHeight));
 	}
 	if (orient=='r'){
-		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2);
-		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2);
+		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2*500/fundoHeight);
+		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2*500/fundoHeight);
 	}
 
-	pers.forEach(p=>enemyDestroy(p));
+	objs.forEach(p=>enemyDestroy(p));
 	pers.forEach(p=>colisao(p));
 
-
-	if (tick==1){
-		createPlatform('chao',800,50,600,50);
-	}
-	if (tick==100){
-		createPlatform('moeda',20,20,400,40);
-	}
-	if (tick==700){
-		createPlatform('chao',450,50,400,50);
-	}
-	if (tick==200){
-		createPlatform('chao',750,50,0,70);
-	}
-	if (tick==3000){
-		createPlatform('chao',450,50,400,50);
-	}
-	if (tick%100==0){
-		createEnemy('pilar',20,20,0,50);
+	switch(tick/100){
+		case 0: createPlatform('chao',2000,10,400,40);
+		break;
+		case 1: createEnemy('pilar',3,3,0,120);
+		createPlatform('chao',200,10,4,60); break;
+		case 2: createPlatform('chao',200,10,0,50); break;
+		case 3: createPlatform('moeda',7,9,20,90); break;
+		case 5: createEnemy('pilar',2,2,0,80);
+		createPlatform('chao',200,10,0,150);break;
+		case 6: createEnemy('pilar',8,8,0,90); break;
+		case 7: createEnemy('pilar',2,2,0,80); break;
 	}
 
-	if (tick==500){
-		createEnemy('pilar',20,20,0,0);
+	if (parseFloat(getComputedStyle(pl).top) >= fundoHeight - parseFloat(getComputedStyle(pl).height)){
+		pl.style.opacity = 0;
+		clearInterval(tickInt);
 	}
-	if (tick==600){
-		createEnemy('pilar',20,20,0,30);
-	}
-	if (tick==700){
-		createEnemy('pilar',20,20,0,60);
-	}
+
+	tick++;
+
 }
 
-function createPlatform(enemyClass,width,height,leftMin,topMin){
+function createPlatform(platClass,width,height,leftMin,topMin){
 	let p = document.createElement('div');
-	p.setAttribute('class',enemyClass);
+	p.setAttribute('class',platClass);
 	pers.push(p);
+	objs.push(p);
 	fundo.appendChild(p);
-	p.style.width = parseInt(getComputedStyle(p).width)+width;
-	p.style.height = parseInt(getComputedStyle(p).height)+height;
-	if (orient=='l'){p.style.left = parseInt(getComputedStyle(fundo).width)-leftMin;}
+	p.style.width = width*0.01*fundoHeight;
+	p.style.height = height*0.01*fundoHeight;
+	if (orient=='l'){p.style.left = parseFloat(getComputedStyle(fundo).width)-leftMin*1000/fundoHeight;}
 	if (orient=='r'){p.style.left = 0;}
 	p.style.top = parseInt(getComputedStyle(fundo).height)-topMin;
 }
@@ -62,44 +57,44 @@ function createEnemy(enemyClass,width,height,leftMin,topMin){
 	p.setAttribute('class',enemyClass);
 	enemy.push(p);
 	pers.push(p);
+	objs.push(p);
 	fundo.appendChild(p);
-	p.style.width = width;
-	p.style.height = height;
+	p.style.width = width*3*(0.01*fundoHeight);
+	p.style.height = height*3*(0.01*fundoHeight);
 	if (orient=='l'){p.style.left = parseInt(getComputedStyle(fundo).width)-leftMin;}
 	if (orient=='r'){p.style.left = 0;}
 	p.style.top = parseInt(getComputedStyle(fundo).height)-topMin;
 }
 
 
-
 function gravidade(){
-	if (pers[0] != null){
-	pers.forEach(p=>cair(p));
+	if (objs[0] != null){
+	objs.forEach(p=>cair(p));
 
 	if (cairCheck==0){
-		pl.style.top = parseInt(getComputedStyle(pl).top)+3-grauQueda;
-		puloCheck = 0;
-	} else {puloCheck = 1;}
+		if (pulando==0) {pl.style.top = parseFloat(getComputedStyle(pl).top)+3*3.5*0.001*fundoHeight;
+		puloCheck = 0;}
+	} 
+	else {puloCheck = 1;}
 	cairCheck = 0;
 	}
+
 }
 function cair(p){
-	let div1Left= parseInt(getComputedStyle(div1).left);
-	let div1Top= parseInt(getComputedStyle(div1).top);
-	let div1Height= parseInt(getComputedStyle(div1).height);
-	let div1Width= parseInt(getComputedStyle(div1).width);
+	let div1Left= parseFloat(getComputedStyle(div1).left);
+	let div1Top= parseFloat(getComputedStyle(div1).top);
+	let div1Height= parseFloat(getComputedStyle(div1).height);
+	let div1Width= parseFloat(getComputedStyle(div1).width);
 
-	let pLeft= parseInt(getComputedStyle(p).left);
-	let pTop= parseInt(getComputedStyle(p).top);
-	let pHeight= parseInt(getComputedStyle(p).height);
-	let pWidth= parseInt(getComputedStyle(p).width);
+	let pLeft= parseFloat(getComputedStyle(p).left);
+	let pTop= parseFloat(getComputedStyle(p).top);
+	let pHeight= parseFloat(getComputedStyle(p).height);
+	let pWidth= parseFloat(getComputedStyle(p).width);
 	
-	let fundoHeight= parseInt(getComputedStyle(fundo).height);
-	let fundoWidth= parseInt(getComputedStyle(fundo).width);
 	if (cairCheck==0) {
 	if (!((((div1Left >= pLeft)&&(div1Left <= pLeft + pWidth))&&
 	((div1Top >= pTop-div1Height)&&(div1Top <= pTop + pHeight))) || (((pLeft >= div1Left)&&(pLeft <= div1Left + div1Width))&&
-	((pTop >= div1Top)&&(pTop <= div1Top + div1Height)))) && (div1Top <= fundoHeight - div1Height)){
+	((pTop >= div1Top)&&(pTop <= div1Top + div1Height)))) && (div1Top <= fundoHeight - div1Height) && (p.className != 'moeda')){
 		cairCheck = 0;
 	}
 	else {cairCheck = 1;}
@@ -109,14 +104,16 @@ function cair(p){
 function enemyDestroy(p){
 	if (orient=='l' && parseInt(getComputedStyle(p).left) <= 0-parseInt(getComputedStyle(p).width)){
 		fundo.removeChild(pers.splice(pers.indexOf(p),1)[0]);
+		objs.splice(objs.indexOf(p),1);
 	}
-	if (orient=='r' && parseInt(getComputedStyle(p).left) >= parseInt(getComputedStyle(fundo).width)-parseInt(getComputedStyle(p).width )){
+	if (orient=='r' && parseInt(getComputedStyle(p).left) >= parseInt(getComputedStyle(fundo).width)){
 		fundo.removeChild(pers.splice(pers.indexOf(p),1)[0]);
+		objs.splice(objs.indexOf(p),1);
 	}
 }
 
 
-// Mover cursor 1  - através dos botões do teclado
+// Mover Personagem  - através dos botões do teclado
 function move(e) {
 	if (audioplay==0) {
 		let neve = new Audio('../audio/neve.mp3');
@@ -124,7 +121,7 @@ function move(e) {
 		audioplay=1;
 	}
 	if (e.keyCode == 32 && puloCheck==1) {
-		timer = setInterval("acima()",50);
+		timer = setInterval("acima()",10);
 	}
 
 	if (e.keyCode == 83) {
@@ -149,55 +146,79 @@ function direita() {
 function acima() {
 	console.log(grauQueda);
 	countPulo++;
-	if (countPulo==1){pl.style.top = parseInt(getComputedStyle(pl).top)-10;
-		grauQueda = 3;
-		puloCheck = 0;}
-	if (countPulo == 2){
-		grauQueda = grauQueda+2;
+	if (countPulo==1){
+		grauQueda = grauQueda + 1*0.001*fundoWidth;
+		puloCheck = 0;
+		pulando = 1;
 	}
-	if (countPulo < 5) {
-		grauQueda = grauQueda+2;
+	if (countPulo<=20){
+		grauQueda = grauQueda + 0.5*0.001*fundoWidth;
+		puloCheck = 0;
 	}
-	if (countPulo > 5) {
-		grauQueda = grauQueda-4;
+	if (countPulo > 20 && countPulo <= 25) {
+		grauQueda = grauQueda - 0.5*0.001*fundoWidth;;
+		pulando = 0;
 	}
-	if (countPulo==10 || puloCheck==1){
+	if (countPulo > 25) {
+		grauQueda = grauQueda-1*0.0001*fundoHeight;
+		pulando = 0;
+	}
+
+	if (countPulo==50 || puloCheck==1){
 	countPulo = 0;
 	grauQueda = 0;
 	clearInterval(timer);
 	}
+	pl.style.top = parseFloat(getComputedStyle(pl).top)-grauQueda;
+
+
 }
 
 // Parar cursores
 
 
-	function colisao(b){
+function colisao(p){
 	let div1Left= parseInt(getComputedStyle(div1).left);
 	let div1Top= parseInt(getComputedStyle(div1).top);
 	let div1Height= parseInt(getComputedStyle(div1).height);
 	let div1Width= parseInt(getComputedStyle(div1).width);
 
-	let div2Left= parseInt(getComputedStyle(b).left);
-	let div2Top= parseInt(getComputedStyle(b).top);
-	let div2Height= parseInt(getComputedStyle(b).height);
-	let div2Width= parseInt(getComputedStyle(b).width);
-	
-	let fundoHeight= parseInt(getComputedStyle(fundo).height);
-	let fundoWidth= parseInt(getComputedStyle(fundo).width);
+	let pLeft= parseInt(getComputedStyle(p).left);
+	let pTop= parseInt(getComputedStyle(p).top);
+	let pHeight= parseInt(getComputedStyle(p).height);
+	let pWidth= parseInt(getComputedStyle(p).width);
 
+	if (((div1Left >= pLeft)&&(div1Left <= pLeft + pWidth) && (div1Top >= pTop-div1Height)&&(div1Top <= pTop + pHeight))
+	|| ((pLeft >= div1Left)&&(pLeft <= div1Left + div1Width) && (pTop >= div1Top) &&(pTop <= div1Top + div1Height))) {
+
+	if (enemy.indexOf(p) != -1){
+		pl.style.opacity = 0;
+		clearInterval(tickInt);
+	}
+	if (p.className == 'moeda'){
+		fundo.removeChild(pers.splice(pers.indexOf(p),1)[0]);
+		objs.splice(objs.indexOf(p),1);
+		moedas++;
 	}
 
+	}
+}
 
 //Ao carregar a página estas linhas são executadas. 
 
 
 let fundo = document.querySelector('#fundo');
-
 let pl = document.querySelector('#div1');
+let moedaCount = document.createElement('div');
+moedaCount.setAttribute('class','moedaCount');
+moedaCount.innerHTML = 'Moedas:';
+fundo.appendChild(moedaCount);
 let pers = [];
 let enemy = [];
+let objs = [];
 let orient = 'l';
 let tick = 0;
+let tickTime = 0;
 let tickInt = setInterval("tickFunc()",10);
 let grav = setInterval("gravidade()",10);
 let audioplay = 0;
@@ -206,15 +227,12 @@ let puloCheck = 0;
 let pulando = 0;
 let grauQueda = 0;
 let countPulo = 0;
+let moedas = 0;
 let timer;
+
+let fundoHeight= parseInt(getComputedStyle(fundo).height);
+let fundoWidth= parseInt(getComputedStyle(fundo).width);
 
 let contador = 0;
 let cont = 0; //Funções que são chamadas a cada 15 e 5 milisegundos
 document.querySelector("body").addEventListener("keydown", (e)=>{move(e)});
-
-
-
-
-
-document.querySelector("#para").addEventListener("click",()=>{ para()});
-document.querySelector("#para2").addEventListener("click", ()=>{para2()});
