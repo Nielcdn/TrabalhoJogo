@@ -1,9 +1,18 @@
-/*inimigos*/
+/*personagens*/
+.moeda {
+   position: absolute;
+   top: 1vw;
+   left: 1vw;
+   height: 0vw;
+   width: 0vw;
+   background-color: goldenrod;
+   border-radius: 50%;
+}
 .pilar {
    position: absolute;
    top: 1vw;
    left: 1vw;
-   height: 3vw;
+   height: 0vw;
    width: 0vw;
    transform: rotate(45deg);
    background-color: aqua;
@@ -12,8 +21,10 @@
    position: absolute;
    top: 30vw;
    left: 20vw;
-   height: 3vw;
-   width: 15vw;
+   height: 0vw;
+   width: 0vw;
+   background-image: url('../img/plataforma_neve.jpg');
+   background-size: cover;
    background-color:coral;
    transform: translateZ(7);
 }

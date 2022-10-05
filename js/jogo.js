@@ -2,12 +2,12 @@
 function tickFunc() {
 	tick++;
 	if (orient=='l'){
-		pers.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)-2);
-		enemy.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)-2);
+		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-2);
+		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-2);
 	}
 	if (orient=='r'){
-		pers.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)+2);
-		enemy.forEach(p=>p.style.left = parseInt(getComputedStyle(p).left)+2);
+		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2);
+		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2);
 	}
 
 	pers.forEach(p=>enemyDestroy(p));
@@ -15,48 +15,56 @@ function tickFunc() {
 
 
 	if (tick==1){
-		createPlatform('chao',450,400,50);
+		createPlatform('chao',800,50,600,50);
+	}
+	if (tick==100){
+		createPlatform('moeda',20,20,400,40);
 	}
 	if (tick==700){
-		createPlatform('chao',450,400,50);
+		createPlatform('chao',450,50,400,50);
+	}
+	if (tick==200){
+		createPlatform('chao',750,50,0,70);
 	}
 	if (tick==3000){
-		createPlatform('chao',450,400,50);
+		createPlatform('chao',450,50,400,50);
 	}
 	if (tick%100==0){
-		createEnemy('pilar',20,0,50);
+		createEnemy('pilar',20,20,0,50);
 	}
 
 	if (tick==500){
-		createEnemy('pilar',20,0,0);
+		createEnemy('pilar',20,20,0,0);
 	}
 	if (tick==600){
-		createEnemy('pilar',20,0,30);
+		createEnemy('pilar',20,20,0,30);
 	}
 	if (tick==700){
-		createEnemy('pilar',20,0,60);
+		createEnemy('pilar',20,20,0,60);
 	}
 }
 
-function createPlatform(enemyClass,width,leftMin,topMin){
+function createPlatform(enemyClass,width,height,leftMin,topMin){
 	let p = document.createElement('div');
 	p.setAttribute('class',enemyClass);
 	pers.push(p);
 	fundo.appendChild(p);
-	p.style.width = width;
+	p.style.width = parseInt(getComputedStyle(p).width)+width;
+	p.style.height = parseInt(getComputedStyle(p).height)+height;
 	if (orient=='l'){p.style.left = parseInt(getComputedStyle(fundo).width)-leftMin;}
 	if (orient=='r'){p.style.left = 0;}
 	p.style.top = parseInt(getComputedStyle(fundo).height)-topMin;
 }
 
 
-function createEnemy(enemyClass,width,leftMin,topMin){
+function createEnemy(enemyClass,width,height,leftMin,topMin){
 	let p = document.createElement('div');
 	p.setAttribute('class',enemyClass);
 	enemy.push(p);
 	pers.push(p);
 	fundo.appendChild(p);
 	p.style.width = width;
+	p.style.height = height;
 	if (orient=='l'){p.style.left = parseInt(getComputedStyle(fundo).width)-leftMin;}
 	if (orient=='r'){p.style.left = 0;}
 	p.style.top = parseInt(getComputedStyle(fundo).height)-topMin;
@@ -69,10 +77,11 @@ function gravidade(){
 	pers.forEach(p=>cair(p));
 
 	if (cairCheck==0){
-		pl.style.top = parseInt(getComputedStyle(pl).top)+2-grauQueda;		
-	}
+		pl.style.top = parseInt(getComputedStyle(pl).top)+3-grauQueda;
+		puloCheck = 0;
+	} else {puloCheck = 1;}
 	cairCheck = 0;
-}
+	}
 }
 function cair(p){
 	let div1Left= parseInt(getComputedStyle(div1).left);
@@ -109,24 +118,13 @@ function enemyDestroy(p){
 
 // Mover cursor 1  - através dos botões do teclado
 function move(e) {
-	console.log(e.keyCode)
 	if (audioplay==0) {
 		let neve = new Audio('../audio/neve.mp3');
 		neve.play();
 		audioplay=1;
 	}
-	if (e.keyCode == 68) {
-		timer = setInterval("direita()",15);
-		contador ++;
-	}
-
-	if (e.keyCode == 32) {
-		if (contador==0){countPulo = 0;}
-		if (countPulo==0){
-			timer = setInterval("acima()",50);
-		}
-		contador ++;
-
+	if (e.keyCode == 32 && puloCheck==1) {
+		timer = setInterval("acima()",50);
 	}
 
 	if (e.keyCode == 83) {
@@ -149,22 +147,24 @@ function direita() {
 }
 
 function acima() {
-	let div1Top = parseInt(getComputedStyle(div1).top)
+	console.log(grauQueda);
 	countPulo++;
-	if (countPulo<2){
-		div1Top = parseInt(getComputedStyle(div1).top + 3);
-		grauQueda = grauQueda+3;
-	}
-	if (countPulo<10) {
+	if (countPulo==1){pl.style.top = parseInt(getComputedStyle(pl).top)-10;
+		grauQueda = 3;
+		puloCheck = 0;}
+	if (countPulo == 2){
 		grauQueda = grauQueda+2;
 	}
-	if (countPulo>5) {
-		grauQueda = grauQueda-2;
+	if (countPulo < 5) {
+		grauQueda = grauQueda+2;
 	}
-	if (countPulo==20){
-	clearInterval(timer);
+	if (countPulo > 5) {
+		grauQueda = grauQueda-4;
+	}
+	if (countPulo==10 || puloCheck==1){
 	countPulo = 0;
 	grauQueda = 0;
+	clearInterval(timer);
 	}
 }
 
@@ -202,8 +202,11 @@ let tickInt = setInterval("tickFunc()",10);
 let grav = setInterval("gravidade()",10);
 let audioplay = 0;
 let cairCheck = 0;
+let puloCheck = 0;
+let pulando = 0;
 let grauQueda = 0;
 let countPulo = 0;
+let timer;
 
 let contador = 0;
 let cont = 0; //Funções que são chamadas a cada 15 e 5 milisegundos
