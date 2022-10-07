@@ -112,7 +112,7 @@ function cair(p){
 	if (cairCheck==0) {
 	if (!((((div1Left >= pLeft)&&(div1Left <= pLeft + pWidth))&&
 	((div1Top >= pTop-div1Height)&&(div1Top <= pTop + pHeight))) || (((pLeft >= div1Left)&&(pLeft <= div1Left + div1Width))&&
-	((pTop >= div1Top)&&(pTop <= div1Top + div1Height)))) && (div1Top <= fundoHeight - div1Height) && (p.className != 'moeda')){
+	((pTop >= div1Top)&&(pTop <= div1Top + div1Height)))) && (div1Top <= fundoHeight - div1Height)){
 		cairCheck = 0;
 	}
 	else {cairCheck = 1;}
