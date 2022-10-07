@@ -174,20 +174,20 @@ function moveCel(){
 function acima() {
 	countPulo++;
 	if (countPulo==1){
-		grauQueda = grauQueda + 1*0.001*fundoWidth;
+		grauQueda = grauQueda + 1.5*0.001*fundoHeight;
 		puloCheck = 0;
 		pulando = 1;
 	}
 	if (countPulo<=20){
-		grauQueda = grauQueda + 0.5*0.001*fundoWidth;
+		grauQueda = grauQueda + 1*0.001*fundoHeight;
 		puloCheck = 0;
 	}
 	if (countPulo > 20 && countPulo <= 25) {
-		grauQueda = grauQueda - 0.5*0.001*fundoWidth;;
+		grauQueda = grauQueda - 1*0.001*fundoHeight;;
 		pulando = 0;
 	}
 	if (countPulo > 25) {
-		grauQueda = grauQueda-1*0.0001*fundoHeight;
+		grauQueda = grauQueda-1.5*0.0001*fundoHeight;
 		pulando = 0;
 	}
 
