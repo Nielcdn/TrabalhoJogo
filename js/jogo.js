@@ -9,14 +9,14 @@ function tickFunc() {
 		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)-1*(0.01*fundoHeight));
 	}
 	if (orient=='r'){
-		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2*500/fundoHeight);
-		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+2*500/fundoHeight);
+		pers.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+1*0.01*fundoHeight);
+		enemy.forEach(p=>p.style.left = parseFloat(getComputedStyle(p).left)+1*0.01*fundoHeight);
 	}
 
 	objs.forEach(p=>enemyDestroy(p));
 	pers.forEach(p=>colisao(p));
 
-	switch(tick*0.01/4.5){
+	switch(tick*0.01){
 		case 0: createPlatform('chao',2000,10,600,10);
 		neveMus.play();
 		break;
@@ -29,31 +29,47 @@ function tickFunc() {
 		case 5: createPers('pilar',2,2,0,15);
 		createPlatform('chao',200,4,0,40);
 		break;
-		case 6: createPers('pilar',3,3,0,25); 
+		case 6: createPers('pilar',3,3,0,35); 
 		createPlatform('chao',100,6,0,45);
-
 		break;
 		case 7: createPers('pilar',2,2,0,80); break;
 		case 7.5: createPers('pilar',2,2,0,80); break;
 		case 8: createPlatform('chao',90,5,0,60);
 		createPers('pilar',3,3,0,80); 
 		break;
-		case 8.5: createPers('pilar',2,2,0,130); break;
+		case 8.5: createPers('pilar',2,2,0,100); break;
 		case 9: createPlatform('chao',20,5,0,40); break;
-
-		case 14: createPlatform('final',30,35,0,50); break;
+		case 9.5: createPlatform('chao',20,5,0,20);
+		createPers('pilar',2,2,0,250);
+		break;
+		case 10.5: createPlatform('chao',500,5,0,20);
+		createPers('pilar',2,2,0,30);
+		break;
+		case 11: createPers('pilar',2,2,0,30); break;
+		case 11.5: createPlatform('chao',20,5,0,20); break;
+		case 12: createPers('pilar',2,2,0,40); break;
+		case 12.5: createPlatform('chao',20,5,0,30); break;
+		case 13: createPers('pilar',2,2,0,50); break;
+		case 13.5: createPlatform('chao',20,5,0,40); break;
+		case 14: createPers('pilar',2,2,0,60); break;
+		case 14.5: createPlatform('chao',20,5,0,50); break;
+		case 15: createPers('moeda',2,2,0,70); break;
+		case 15.5: createPlatform('chao',20,5,0,60); break;
+		case 16: createPers('pilar',2,2,0,50);
+		createPers('pilar',2,2,0,60);
+		break;
+		case 20: createPlatform('final',30,35,0,50); break;
 
 
 	}
-
+	if (tick/100==Math.floor(tick)*100){console.log(tick);}
 	if (parseFloat(getComputedStyle(pl).top) >= fundoHeight - parseFloat(getComputedStyle(pl).height)){
 		pl.style.opacity = 0;
 		neveMus.pause();
 		clearInterval(tickInt);
 	}
 
-	tick = tick + 4.5;
-
+	tick += 1;
 }
 
 function createPlatform(platClass,width,height,leftMin,topMin){
@@ -66,7 +82,7 @@ function createPlatform(platClass,width,height,leftMin,topMin){
 	p.style.height = height*0.01*fundoWidth;
 	if (orient=='l'){p.style.left = parseFloat(getComputedStyle(fundo).width)-leftMin*0.01*fundoHeight;}
 	if (orient=='r'){p.style.left = 0;}
-	p.style.top = parseInt(getComputedStyle(fundo).height)-topMin*0.01*fundoHeight;
+	p.style.top = parseFloat(getComputedStyle(fundo).height)-topMin*0.01*fundoHeight;
 }
 
 
@@ -79,9 +95,9 @@ function createPers(enemyClass,width,height,leftMin,topMin){
 	fundo.appendChild(p);
 	p.style.width = width*0.01*fundoWidth;
 	p.style.height = height*0.01*fundoWidth;
-	if (orient=='l'){p.style.left = parseInt(getComputedStyle(fundo).width)-leftMin*0.01*fundoHeight;}
+	if (orient=='l'){p.style.left = parseFloat(getComputedStyle(fundo).width)-leftMin*0.01*fundoHeight;}
 	if (orient=='r'){p.style.left = 0;}
-	p.style.top = parseInt(getComputedStyle(fundo).height)-topMin*0.01*fundoHeight;
+	p.style.top = parseFloat(getComputedStyle(fundo).height)-topMin*0.01*fundoHeight;
 }
 
 
@@ -120,11 +136,11 @@ function cair(p){
 }
 
 function enemyDestroy(p){
-	if (orient=='l' && parseInt(getComputedStyle(p).left) <= 0-parseInt(getComputedStyle(p).width)){
+	if (orient=='l' && parseFloat(getComputedStyle(p).left) <= 0-parseFloat(getComputedStyle(p).width)){
 		fundo.removeChild(pers.splice(pers.indexOf(p),1)[0]);
 		objs.splice(objs.indexOf(p),1);
 	}
-	if (orient=='r' && parseInt(getComputedStyle(p).left) >= parseInt(getComputedStyle(fundo).width)){
+	if (orient=='r' && parseFloat(getComputedStyle(p).left) >= parseFloat(getComputedStyle(fundo).width)){
 		fundo.removeChild(pers.splice(pers.indexOf(p),1)[0]);
 		objs.splice(objs.indexOf(p),1);
 	}
@@ -203,8 +219,14 @@ function colisao(p){
 	|| ((pLeft >= div1Left)&&(pLeft <= div1Left + div1Width) && (pTop >= div1Top) &&(pTop <= div1Top + div1Height))) {
 
 	if (enemy.indexOf(p) != -1 && p.className != 'moeda'){
-		pl.style.opacity = 0;
 		neveMus.pause();
+		pl.style.opacity = 0;
+		pers.forEach(p=>p.style.opacity = 0);
+		moedaCount.innerHTML = 'Fim de Jogo!<br>Você coletou '+moedas+' moedas!';
+		moedaCount.style.top = fundoHeight*0.5 - parseFloat(getComputedStyle(moedaCount).top);
+		moedaCount.style.left = fundoWidth*0.5 - parseFloat(getComputedStyle(moedaCount).width);
+		moedaCount.style.width = parseFloat(getComputedStyle(moedaCount).width)*2.5;
+		moedaCount.style.height = parseFloat(getComputedStyle(moedaCount).height)*2;
 		clearInterval(tickInt);
 	}
 	if (p.className == 'moeda'){
@@ -240,7 +262,7 @@ let pers = [];
 let enemy = [];
 let objs = [moedaCount];
 let orient = 'l';
-let tick = 0;
+let tick = 0.0;
 let tickTime = 0;
 let tickInt;
 let grav;
@@ -253,8 +275,8 @@ let countPulo = 0;
 let moedas = 0;
 let timer;
 
-let fundoHeight= parseInt(getComputedStyle(fundo).height);
-let fundoWidth= parseInt(getComputedStyle(fundo).width);
+let fundoHeight= parseFloat(getComputedStyle(fundo).height);
+let fundoWidth= parseFloat(getComputedStyle(fundo).width);
 
 let cont = 0;
 document.querySelector("body").addEventListener("keydown", (e)=>{move(e)});
