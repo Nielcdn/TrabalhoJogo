@@ -1,13 +1,5 @@
 /*personagens*/
-.moeda {
-   position: absolute;
-   top: 1vw;
-   left: 1vw;
-   height: 0vw;
-   width: 0vw;
-   background-color: goldenrod;
-   border-radius: 50%;
-}
+
 .pilar {
    position: absolute;
    top: 1vw;
@@ -27,6 +19,25 @@
    background-size: cover;
 }
 
+.final {
+   position: absolute;
+   top: 30vw;
+   left: 20vw;
+   height: 0vw;
+   width: 0vw;
+   background-image: radial-gradient(darkblue,lightblue);
+   background-size: cover;
+}
+
+.moeda {
+   position: absolute;
+   top: 1vw;
+   left: 1vw;
+   height: 0vw;
+   width: 0vw;
+   background-color: goldenrod;
+   border-radius: 50%;
+}
 body {
    background-color: rgb(52, 25, 78);
 }
@@ -37,14 +48,18 @@ body {
    position:absolute;
    top: 1vw;
    left: 0vw;
-   width: 5vw;
-   height: 2vw;
+   width: 10vw;
+   height: 3vw;
    font-size: 2.5vh;
-   color:chartreuse;
+   font-weight: bold;
+   background-color: lightgray;
+   color:rgb(6, 10, 3);
+   transition: width 2s linear 0s;
+   transition: height 2s linear 0s;
 }
 
 .fora {position:absolute;
-   top: 2vw;
+   top: 1vw;
    left: 8%;}
 
 .fundo {position:absolute;
@@ -59,7 +74,10 @@ body {
 .painel {
    position: absolute;
     top: 42vw; 
-    left:10vw; 
+    left: 10vw; 
+    width: 60vw;
+    height: 2vw;
+    color:antiquewhite;
     text-align: center;
 }
 
