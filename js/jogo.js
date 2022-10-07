@@ -62,7 +62,6 @@ function tickFunc() {
 
 
 	}
-	if (tick/100==Math.floor(tick)*100){console.log(tick);}
 	if (parseFloat(getComputedStyle(pl).top) >= fundoHeight - parseFloat(getComputedStyle(pl).height)){
 		pl.style.opacity = 0;
 		neveMus.pause();
@@ -163,6 +162,7 @@ function moveCel(){
 	if (start==0) {
 		tickInt = setInterval("tickFunc()",10);
 		grav = setInterval("gravidade()",10);
+		neveMus.play();
 		start = 1;
 	}
 	if (puloCheck==1) {
