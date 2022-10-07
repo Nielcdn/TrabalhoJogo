@@ -135,9 +135,6 @@ function move(e) {
 	if (e.keyCode == 32 && puloCheck==1) {
 		timer = setInterval("acima()",10);
 	}
-
-	if (e.keyCode == 83) {
-	}
 }
 
 function moveCel(){
@@ -146,7 +143,9 @@ function moveCel(){
 		grav = setInterval("gravidade()",10);
 		start = 1;
 	}
-	timer = setInterval("acima()",10);
+	if (puloCheck==1) {
+		timer = setInterval("acima()",10);
+	}
 }
 
 
