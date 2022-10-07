@@ -21,21 +21,27 @@ function tickFunc() {
 		neveMus.play();
 		break;
 		case 1: createPers('pilar',3,3,0,40);
-		createPlatform('chao',8,5,4,30);
+		createPlatform('chao',35,5,4,30);
 		break;
 		case 1.5: createPers('moeda',2,3,0,45); break;
-		case 2: createPlatform('chao',20,5,0,15); break;
+		case 2: createPlatform('chao',25,3,0,20); break;
 		case 3: createPers('moeda',2,3,0,15); break;
 		case 5: createPers('pilar',2,2,0,15);
-		createPlatform('chao',200,10,0,150);
+		createPlatform('chao',200,4,0,40);
 		break;
-		case 6: createPers('pilar',8,8,0,25); break;
+		case 6: createPers('pilar',3,3,0,25); 
+		createPlatform('chao',100,6,0,45);
+
+		break;
 		case 7: createPers('pilar',2,2,0,80); break;
-		case 8: createPlatform('chao',200,5,0,60); break;
+		case 7.5: createPers('pilar',2,2,0,80); break;
+		case 8: createPlatform('chao',90,5,0,60);
+		createPers('pilar',3,3,0,80); 
+		break;
 		case 8.5: createPers('pilar',2,2,0,130); break;
-		case 8: createPlatform('chao',200,5,0,40); break;
-		case 8: createPlatform('chao',100,3,0,10); break;
-		case 14: createPlatform('final',30,35,0,500); break;
+		case 9: createPlatform('chao',20,5,0,40); break;
+
+		case 14: createPlatform('final',30,35,0,50); break;
 
 
 	}
@@ -183,15 +189,15 @@ function acima() {
 
 
 function colisao(p){
-	let div1Left= parseInt(getComputedStyle(div1).left);
-	let div1Top= parseInt(getComputedStyle(div1).top);
-	let div1Height= parseInt(getComputedStyle(div1).height);
-	let div1Width= parseInt(getComputedStyle(div1).width);
+	let div1Left= parseFloat(getComputedStyle(div1).left);
+	let div1Top= parseFloat(getComputedStyle(div1).top);
+	let div1Height= parseFloat(getComputedStyle(div1).height);
+	let div1Width= parseFloat(getComputedStyle(div1).width);
 
-	let pLeft= parseInt(getComputedStyle(p).left);
-	let pTop= parseInt(getComputedStyle(p).top);
-	let pHeight= parseInt(getComputedStyle(p).height);
-	let pWidth= parseInt(getComputedStyle(p).width);
+	let pLeft= parseFloat(getComputedStyle(p).left);
+	let pTop= parseFloat(getComputedStyle(p).top);
+	let pHeight= parseFloat(getComputedStyle(p).height);
+	let pWidth= parseFloat(getComputedStyle(p).width);
 
 	if (((div1Left >= pLeft)&&(div1Left <= pLeft + pWidth) && (div1Top >= pTop-div1Height)&&(div1Top <= pTop + pHeight))
 	|| ((pLeft >= div1Left)&&(pLeft <= div1Left + div1Width) && (pTop >= div1Top) &&(pTop <= div1Top + div1Height))) {
