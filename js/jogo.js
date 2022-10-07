@@ -141,6 +141,11 @@ function move(e) {
 }
 
 function moveCel(){
+	if (start==0) {
+		tickInt = setInterval("tickFunc()",10);
+		grav = setInterval("gravidade()",10);
+		start = 1;
+	}
 	timer = setInterval("acima()",10);
 }
 
@@ -209,8 +214,8 @@ function colisao(p){
 		moedaCount.innerHTML = 'Fim de Jogo!<br>Você coletou '+moedas+' moedas!';
 		moedaCount.style.top = fundoHeight*0.5 - parseFloat(getComputedStyle(moedaCount).top);
 		moedaCount.style.left = fundoWidth*0.5 - parseFloat(getComputedStyle(moedaCount).width);
-		moedaCount.style.width = parseFloat(getComputedStyle(moedaCount).width)*3;
-		moedaCount.style.height = parseFloat(getComputedStyle(moedaCount).height)*3;
+		moedaCount.style.width = parseFloat(getComputedStyle(moedaCount).width)*2.5;
+		moedaCount.style.height = parseFloat(getComputedStyle(moedaCount).height)*2;
 		clearInterval(tickInt);
 	}
 	}
