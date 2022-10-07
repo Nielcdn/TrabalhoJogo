@@ -18,12 +18,12 @@ function tickFunc() {
 
 	switch(tick*0.01){
 		case 0: createPlatform('chao',2000,10,600,10);
-		neveMus.play();
 		break;
 		case 1: createPers('pilar',3,3,0,40);
 		createPlatform('chao',35,5,4,30);
 		break;
-		case 1.5: createPers('moeda',2,3,0,45); break;
+		case 1.5: neveMus.play();
+		createPers('moeda',2,3,0,45); break;
 		case 2: createPlatform('chao',25,3,0,20); break;
 		case 3: createPers('moeda',2,3,0,15); break;
 		case 5: createPers('pilar',2,2,0,15);
