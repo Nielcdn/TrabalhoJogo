@@ -8,6 +8,7 @@
    width: 0vw;
    transform: rotate(45deg);
    background-color: aqua;
+   transition: opacity 2s linear 0s;
 }
 .chao {
    position: absolute;
@@ -17,6 +18,7 @@
    width: 0vw;
    background-image: url('../img/plataforma_neve.jpg');
    background-size: cover;
+   transition: opacity 2s linear 0s;
 }
 
 .final {
@@ -27,6 +29,7 @@
    width: 0vw;
    background-image: radial-gradient(darkblue,lightblue);
    background-size: cover;
+   transition: opacity 2s linear 0s;
 }
 
 .moeda {
@@ -37,26 +40,40 @@
    width: 0vw;
    background-color: goldenrod;
    border-radius: 50%;
+   transition: opacity 2s linear 0s;
 }
+
+.save {
+   position: absolute;
+   top: 1vw;
+   left: 1vw;
+   height: 0vw;
+   width: 0vw;
+   background-color: lightyellow;
+   font-size: 1.2vw;
+   transition: opacity 2s linear 0s;
+}
+/*     */
+
 body {
    background-color: rgb(52, 25, 78);
 }
 
-/*     */
 
 .moedaCount {
    position:absolute;
-   top: 1vw;
+   top: 0vw;
    left: 0vw;
-   width: 10vw;
+   width: 10.5vw;
    height: 3vw;
-   font-size: 2.5vh;
+   font-size: 1.75vw;
    font-weight: bold;
    background-color: lightgray;
    color:rgb(6, 10, 3);
    transition: width 2s linear 0s;
    transition: height 2s linear 0s;
 }
+
 
 .fora {position:absolute;
    top: 1vw;
@@ -71,6 +88,9 @@ body {
     text-align: center;
     overflow: hidden;
    }
+
+button {font-size: 1.5vw;
+   width:100%;}
 .painel {
    position: absolute;
     top: 42vw; 
@@ -83,7 +103,7 @@ body {
 
 #div1 {
    position: absolute;
-   top: 15vw;
+   top: 20vw;
    left: 15vw; 
    width: 5vw; 
    height: 5vw; 
